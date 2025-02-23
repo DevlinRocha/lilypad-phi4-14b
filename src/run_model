@@ -5,10 +5,9 @@ mkdir -p /outputs
 
 # Parse base64 input argument and decode to JSON
 echo "Raw input (base64): $1" >&2
-input_json=$(echo "$1" | base64 -d || echo "{}")
 
 # Extract values from input JSON with defaults
-messages=$(echo "$input_json" | jq -r '.messages // empty' || echo '[{"role":"user","content":"How can you help me?"}]')
+input_json="[{"role": "user", "content": "$INPUT || 'How can you help me?'"}]"
 temperature=$(echo "$input_json" | jq -r '.temperature // empty' || echo "0.8")
 max_tokens=$(echo "$input_json" | jq -r '.max_tokens // empty' || echo "2048")
 
@@ -37,7 +36,7 @@ request=$(
     cat <<EOF
 {
   "model": "$MODEL_ID",
-  "messages": $messages,
+  "messages": $input_json,
   "temperature": $temperature,
   "max_tokens": $max_tokens,
   "stream": false
