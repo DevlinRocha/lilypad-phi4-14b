@@ -1,0 +1,21 @@
+{
+  "machine": { "gpu": 1, "vram": 0, "cpu": 8000, "ram": 16000 },
+  "job": {
+    "APIVersion": "V1beta1",
+    "Spec": {
+      "Deal": { "Concurrency": 1 },
+      "Docker": {
+        "WorkingDirectory": "/app",
+        "Entrypoint": ["/app/src/run_model"],
+        "EnvironmentVariables": ["INPUT={{ js .input }}"],
+        "Image": "dockerhub_username/image:tag"
+      },
+      "Engine": "Docker",
+      "Network": { "Type": "None" },
+      "Outputs": [{ "Name": "outputs", "Path": "/outputs" }],
+      "Resources": { "GPU": "1", "CPU": "81", "Memory": "16Gb" },
+      "Timeout": 1800,
+      "Verifier": "Noop"
+    }
+  }
+}
