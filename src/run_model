@@ -11,7 +11,7 @@ mkdir -p /outputs
 echo "Raw input: $1" >&2
 
 # Extract values from input JSON with defaults
-messages="[{"role": "user", "content": "$1"}]"
+messages='[{"role": "user", "content": "$1"}]'
 # temperature=$(echo "$messages" | sed -n 's/.*"temperature" // empty' || echo "0.8")
 # max_tokens=$(echo "$messages" | sed -n 's/.*"max_tokens" // empty' || echo "2048")
 
