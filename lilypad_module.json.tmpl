@@ -7,7 +7,7 @@
       "Docker": {
         "WorkingDirectory": "/app",
         "Entrypoint": ["/app/src/run_model"],
-        "EnvironmentVariables": ["INPUT={{ js .input }}"],
+        "EnvironmentVariables": ["INPUT={{ .input }}"],
         "Image": "devlinrocha/phi4-14b:latest"
       },
       "Engine": "Docker",
