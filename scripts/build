@@ -55,7 +55,7 @@ echo Building Docker image: $IMAGE_NAME...
 # Build argument for model name and version
 MODEL_ID="${MODEL_NAME}:${MODEL_VERSION}"
 
-docker buildx build --progress=plain --build-arg MODEL_ID=$MODEL_ID --platform $platform \
+docker buildx build --build-arg MODEL_ID=$MODEL_ID --platform $platform \
   -t $IMAGE_NAME \
   ${local:+--load} ${local:---push} \
   ${no_cache:+--no-cache} \
