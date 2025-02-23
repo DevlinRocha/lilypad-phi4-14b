@@ -3,16 +3,21 @@
 # Create output directory if it doesn't exist
 mkdir -p /outputs
 
+# Base64 encode the input
+# BASE64_INPUT=$(echo "$JSON_INPUT" | base64 -d)
 # Parse base64 input argument and decode to JSON
-echo "Raw input (base64): $1" >&2
-echo "Passed in input: $INPUT" >&2
+
+# echo "Raw input (base64): $BASE64_INPUT" >&2
+echo "Raw input: $INPUT" >&2
+echo "INPUT variable: $INPUT" >&2
 
 # Extract values from input JSON with defaults
-messages="[{'role': 'user', 'content': '$INPUT'}]"
+messages="[{'role': 'user', 'content': '$1'}]"
 # temperature=$(echo "$messages" | sed -n 's/.*"temperature" // empty' || echo "0.8")
 # max_tokens=$(echo "$messages" | sed -n 's/.*"max_tokens" // empty' || echo "2048")
 
 # Start the ollama server in the background
+echo $messages
 echo "Starting Ollama server..." >&2
 nohup bash -c "ollama serve &" >&2
 
@@ -73,8 +78,8 @@ formatted_response="{
 # Save debug info
 {
     echo "=== Debug Info ==="
-    echo "Input (base64): $1"
-    echo "Decoded input: $input_json"
+    echo "raw input: $1"
+    echo "INPUT variable: $INPUT"
     echo "Request to Ollama: $request"
     echo "Response from Ollama:"
     echo "$response"
