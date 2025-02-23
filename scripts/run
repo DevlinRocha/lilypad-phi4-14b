@@ -28,7 +28,7 @@ if [ "$local" != true ]; then
     echo "Running $IMAGE_NAME on Lilypad Network..."
     echo "Original input: $JSON_INPUT"
     echo "Base64 encoded: $BASE64_INPUT"
-    # lilypad run $IMAGE_NAME -i $BASE64_INPUT
+    lilypad run $GITHUB_REPO:$GITHUB_TAG --prompt $BASE64_INPUT
 else
     echo "Running $IMAGE_NAME locally..."
     echo "Original input: $JSON_INPUT"

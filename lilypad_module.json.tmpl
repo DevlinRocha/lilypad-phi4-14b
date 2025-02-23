@@ -6,8 +6,7 @@
       "Deal": { "Concurrency": 1 },
       "Docker": {
         "WorkingDirectory": "/app",
-        "Entrypoint": ["/app/src/run_model"],
-        "EnvironmentVariables": ["INPUT={{ .input }}"],
+        "Entrypoint": ["/app/src/run_model", {{ .prompt }}],
         "Image": "devlinrocha/phi4-14b:latest"
       },
       "Engine": "Docker",
