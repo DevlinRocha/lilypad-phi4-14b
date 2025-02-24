@@ -9,7 +9,7 @@
         "Entrypoint": [
           "/app/src/run_model",
           "--prompt", {{.prompt}},
-          "--temperature", {{.temperature}}
+          "--temperature", {{.temperature}},
           "--max_tokens", {{.max_tokens}}
         ],
         "Image": "devlinrocha/phi4-14b:v0.0.4"
