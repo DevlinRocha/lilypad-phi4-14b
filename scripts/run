@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
     echo "Usage: scripts/run [--local] <input>"
     echo "Example: scripts/run 'What animal order do frogs belong to?'"
     exit 1
 fi
 
 if [ $1 == "--local" ] || [ $1 == "-l" ]; then
-    if [ "$#" -ne 2 ]; then
+    if [ $# -ne 2 ]; then
         echo "❌ Error: Input is required."
         echo "Example: scripts/run --local 'What animal order do frogs belong to?'"
         exit 1
@@ -21,17 +21,19 @@ fi
 
 # Base64 encode the input
 JSON_INPUT="{"messages": [{"role": "user", "content": "$INPUT"}]}"
-BASE64_INPUT=$(echo "$JSON_INPUT" | base64)
-IMAGE_NAME=$DOCKER_HUB_REPO:$DOCKER_TAG
+BASE64_INPUT=$(echo $JSON_INPUT | base64)
+commit_hash=$(git log --pretty=format:%H | head -n 1)
 
 if [ $local != true ]; then
-    echo "Running $IMAGE_NAME on Lilypad Network..."
+    MODULE=$GITHUB_REPO:$commit_hash
+    echo "Running $MODULE on Lilypad Network..."
     echo "Original input: $JSON_INPUT"
     echo "Base64 encoded: $BASE64_INPUT"
-    lilypad run $GITHUB_REPO:$GITHUB_TAG -i prompt=$BASE64_INPUT
+    lilypad run $MODULE -i prompt=$BASE64_INPUT
 else
-    echo "Running $IMAGE_NAME locally..."
+    MODULE=$DOCKER_IMAGE:$VERSION
+    echo "Running $MODULE locally..."
     echo "Original input: $JSON_INPUT"
     echo "Base64 encoded: $BASE64_INPUT"
-    docker run $IMAGE_NAME $BASE64_INPUT
+    docker run $MODULE $BASE64_INPUT
 fi
