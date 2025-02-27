@@ -2,16 +2,6 @@
 
 Run [Phi-4 14B](https://ollama.com/library/phi4) on Lilypad Network.
 
-## Getting Started
-
-> Make sure that you Base64 encode your input.
-
-```sh
-export WEB3_PRIVATE_KEY=WEB3_PRIVATE_KEY
-
-lilypad run github.com/DevlinRocha/lilypad-phi4-14b:v0.0.1 -i input=$(echo '{"prompt": "What is the correct answer to the trolley problem?", "temperature": "1.0"}' | base64 -w 0)
-```
-
 ### Valid Parameters and Default Values
 
 > \* === Required
